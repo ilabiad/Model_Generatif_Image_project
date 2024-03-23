@@ -39,8 +39,8 @@ class Gatys:
         img = self.postpb(t)
         return img
 
-    def __init__(self, weights='DEFAULT'):
-        self.model = VGG()
+    def __init__(self, weights='DEFAULT', pool='max'):
+        self.model = VGG(pool=pool)
         state_dict = get_VGG19_state_dict(self.model, weights=weights)
         self.model.load_state_dict(state_dict)
         for param in self.model.parameters():
