@@ -1,8 +1,10 @@
 import torch
+import os
 
 from AdaIN_utils import *
 from torchvision import transforms
 from matplotlib.pyplot import imshow
+import matplotlib.pyplot as plt
 
 from PIL import Image
 
@@ -91,3 +93,14 @@ class AdaIN:
             out_img = image
         imshow(out_img)
 
+    def save_output_image(self, image, output_dir="./generated_images", filename="style_transfert.jpg", pil=False):
+        os.makedirs(output_dir, exist_ok=True)
+        save_path = os.path.join(output_dir, filename)
+        if not pil:
+            out_img = self.postprocess(image)
+        else:
+            out_img = image
+        plt.imshow(out_img)
+        plt.axis('off')
+        plt.savefig(save_path)
+        #print(f"Saved output image to: {save_path}")
