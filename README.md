@@ -12,7 +12,7 @@ The .py files contain the code with the necessary methods to do style transfer
 
 The folder saved_models/contains the necessary models to be loaded
 
-The **demo** on how the code can be used to perform style transfer is in AdaIN.ipynb and Gatys.iypnb
+The **demo** on how the code can be used to perform style transfer is in Experiments.ipynb, AdaIN.ipynb and Gatys.iypnb 
 
 A few content and style samples can be found in content/ and style/ folders
 
