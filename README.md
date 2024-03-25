@@ -7,7 +7,7 @@ This project is a comprehensive comparison of the following works:
 - [Image Style Transfer Using Convolutional Neural Networks (Gatys et al, 2016)](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf)
 
 
-# project structure
+# Project Structure
 The .py files contain the code with the necessary methods to do style transfer
 
 The folder saved_models/contains the necessary models to be loaded
