@@ -1,11 +1,10 @@
 import torch
-import os
 
 from AdaIN_utils import *
 from torchvision import transforms
 from matplotlib.pyplot import imshow
 import matplotlib.pyplot as plt
-
+import os
 from PIL import Image
 
 # credit to : https://github.com/ziwei-jiang/AdaIN-Style-Transfer-PyTorch/tree/master
@@ -33,8 +32,8 @@ class AdaIN:
     def transfer_style(self, content, style):
         with torch.no_grad():
             self.model.eval()
-            content_image = self.transform(content).unsqueeze(0).to(self.device)
-            style_image = self.transform(style).unsqueeze(0).to(self.device)
+            content_image = self.transform(content.convert("RGB")).unsqueeze(0).to(self.device)
+            style_image = self.transform(style.convert("RGB")).unsqueeze(0).to(self.device)
 
             output = self.model([content_image, style_image], alpha=1.0)
         return output
@@ -42,7 +41,7 @@ class AdaIN:
     def get_content_from_image(self, image, pil=True):
         eps = 1e-5
         if pil:
-            content_image = self.transform(image).unsqueeze(0).to(self.device)
+            content_image = self.transform(image.convert("RGB")).unsqueeze(0).to(self.device)
         else:
             content_image = image.to(self.device)
         with torch.no_grad():
@@ -56,7 +55,7 @@ class AdaIN:
 
     def get_style_from_image(self, image, pil=True):
         if pil:
-            style_image = self.transform(image).unsqueeze(0).to(self.device)
+            style_image = self.transform(image.convert("RGB")).unsqueeze(0).to(self.device)
         else:
             style_image = image.to(self.device)
 

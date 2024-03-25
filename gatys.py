@@ -2,6 +2,9 @@ from gatys_utils import *
 from matplotlib.pyplot import imshow
 import matplotlib.pyplot as plt
 import os
+# credits to authors repo : https://github.com/leongatys/PytorchNeuralStyleTransfer
+
+
 class Gatys:
     # pre and post processing for images
     img_size = 512
@@ -75,7 +78,7 @@ class Gatys:
         # run style transfer
         optimizer = optim.LBFGS([opt_img])
         n_iter = [0]
-
+        self.model.eval()
         while n_iter[0] <= max_iter:
 
             def closure():
@@ -100,6 +103,8 @@ class Gatys:
             content_image = self.prep(image).unsqueeze(0).to(self.device)
         else:
             content_image = image.to(self.device)
+        # there is only one content layer normally
+        self.model.eval()
         return [A.detach() for A in self.model(content_image, self.content_layers)]
 
     def get_style_from_image(self, image, pil=True):
@@ -107,6 +112,7 @@ class Gatys:
             style_image = self.prep(image).unsqueeze(0).to(self.device)
         else:
             style_image = image.to(self.device)
+        self.model.eval()
         return [GramMatrix()(A).detach() for A in self.model(style_image, self.style_layers)]
 
     def postprocess(self, image):
@@ -118,7 +124,7 @@ class Gatys:
         else:
             out_img = image
         imshow(out_img)
-        
+
     def save_output_image(self, image, output_dir="./generated_images", filename="style_transfert.jpg", pil=False):
         os.makedirs(output_dir, exist_ok=True)
         save_path = os.path.join(output_dir, filename)
